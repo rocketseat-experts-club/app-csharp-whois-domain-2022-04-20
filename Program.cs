@@ -1,3 +1,4 @@
 using WhoisDomain.Application;
 
-new Whois().Run();
+IApplication application = new Whois();
+application.Run();

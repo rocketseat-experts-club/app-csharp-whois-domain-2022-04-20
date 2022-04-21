@@ -6,7 +6,7 @@ namespace WhoisDomain.Service;
 
 public class WhoisQueryTcp : IWhoisQuery
 {
-    private readonly TldWhoisServerDatabaseHardCoded _tldWhoisServerDatabase;
+    private readonly ITldWhoisServerDatabase _tldWhoisServerDatabase;
 
     public WhoisQueryTcp()
     {

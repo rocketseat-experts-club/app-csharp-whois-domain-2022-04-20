@@ -4,8 +4,8 @@ namespace WhoisDomain.Application;
 
 public class Whois : IApplication
 {
-    private readonly WhoisQueryTcp _whoisQuery;
-    private readonly UserInputFromCommandLineArgument _userInput;
+    private readonly IWhoisQuery _whoisQuery;
+    private readonly IUserInput _userInput;
 
     public Whois()
     {
