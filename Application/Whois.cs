@@ -4,12 +4,12 @@ namespace WhoisDomain.Application;
 
 public class Whois : IApplication
 {
-    private readonly IWhoisQuery _whoisQuery;
+    private readonly IEnumerable<IWhoisQuery> _whoisQueryList;
     private readonly IUserInput _userInput;
 
-    public Whois(IWhoisQuery whoisQuery, IUserInput userInput)
+    public Whois(IEnumerable<IWhoisQuery> whoisQueryList, IUserInput userInput)
     {
-        _whoisQuery = whoisQuery;
+        _whoisQueryList = whoisQueryList;
         _userInput = userInput;
     }
     
@@ -22,7 +22,11 @@ public class Whois : IApplication
             foreach (var internetDomain in _userInput.Domains)
             {
                 Console.WriteLine($"###[ {internetDomain} ]###".PadRight(80, '#'));
-                Console.WriteLine(_whoisQuery.Request(internetDomain) ?? $"TLD indisponível para consulta: {internetDomain.Tld}");
+                foreach (var whoisQuery in _whoisQueryList)
+                {
+                    Console.WriteLine($"===[ {whoisQuery.GetType().Name} ]===".PadRight(80, '='));
+                    Console.WriteLine(whoisQuery.Request(internetDomain) ?? $"TLD indisponível para consulta: {internetDomain.Tld}");
+                }
             }
 
             Console.WriteLine(string.Empty.PadRight(80, '#'));

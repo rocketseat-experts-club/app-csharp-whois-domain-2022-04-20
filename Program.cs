@@ -11,6 +11,9 @@ using var host = Host
         .AddTransient<ITldWhoisServerList, TldWhoisServerDatabaseHardCoded>()
         .AddTransient<IUserInput, UserInputFromCommandLineArgument>()
         .AddTransient<IWhoisQuery, WhoisQueryTcp>()
+        .AddTransient<IWhoisQuery, WhoisQueryIpAddress>()
+        .AddTransient<IWhoisQuery, WhoisQueryGeolocation>()
+        .AddTransient<IWhoisQuery, WhoisQueryFetchHtml>()
     ).Build();
 
 var application = host.Services.GetRequiredService<IApplication>();
