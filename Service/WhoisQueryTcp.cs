@@ -8,9 +8,9 @@ public class WhoisQueryTcp : IWhoisQuery
 {
     private readonly ITldWhoisServerDatabase _tldWhoisServerDatabase;
 
-    public WhoisQueryTcp()
+    public WhoisQueryTcp(ITldWhoisServerDatabase tldWhoisServerDatabase)
     {
-        _tldWhoisServerDatabase = new TldWhoisServerDatabaseHardCoded();
+        _tldWhoisServerDatabase = tldWhoisServerDatabase;
     }
 
     public string? Request(InternetDomainModel internetDomain)

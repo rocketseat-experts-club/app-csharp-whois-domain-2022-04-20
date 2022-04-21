@@ -7,10 +7,10 @@ public class Whois : IApplication
     private readonly IWhoisQuery _whoisQuery;
     private readonly IUserInput _userInput;
 
-    public Whois()
+    public Whois(IWhoisQuery whoisQuery, IUserInput userInput)
     {
-        _whoisQuery = new WhoisQueryTcp();
-        _userInput = new UserInputFromCommandLineArgument();
+        _whoisQuery = whoisQuery;
+        _userInput = userInput;
     }
     
     public void Run()
