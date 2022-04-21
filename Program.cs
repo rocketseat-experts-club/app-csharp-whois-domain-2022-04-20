@@ -1,18 +1,9 @@
 ﻿using System.Net.Sockets;
-using WhoisDomain.Model;
+using WhoisDomain.Service;
 
 Console.WriteLine("Whois Internet Domain");
 
-var tldWhoisServerDatabase = new TldWhoisServerModel[]
-{
-    new () { Tld = ".com", Server = "whois.verisign-grs.com" },
-    new () { Tld = ".net", Server = "whois.verisign-grs.com" },
-    new () { Tld = ".org", Server = "whois.pir.org" },
-    new () { Tld = ".com.br", Server = "whois.registro.br" },
-    new () { Tld = ".net.br", Server = "whois.registro.br" },
-    new () { Tld = ".org.br", Server = "whois.registro.br" },
-    new () { Tld = ".dev", Server = "whois.nic.google" }
-};
+var tldWhoisServerDatabase = new TldWhoisServerDatabaseHardCoded();
 
 var internetDomains = Environment
     .GetCommandLineArgs()
@@ -29,10 +20,12 @@ if (internetDomains.Length > 0)
 
         Console.WriteLine($"###[ {host}{tld} ]###".PadRight(80, '#'));
 
-        var tldWhois = tldWhoisServerDatabase.FirstOrDefault(x => x.Tld == tld);
-        if (tldWhois != null)
+        var tldWhois = tldWhoisServerDatabase.GetByTld(tld);
+        if (tldWhois != null &&
+            !string.IsNullOrWhiteSpace(tldWhois.Server) &&
+            tldWhois.Port > 0)
         {
-            using var stream = new TcpClient(tldWhois.Server!,tldWhois.Port).GetStream();
+            using var stream = new TcpClient(tldWhois.Server,tldWhois.Port).GetStream();
             using var buffered = new BufferedStream(stream);
 
             var writer = new StreamWriter(buffered);
