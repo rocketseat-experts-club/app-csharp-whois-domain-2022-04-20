@@ -1,20 +1,14 @@
 ﻿using System.Net.Sockets;
-using WhoisDomain.Model;
 using WhoisDomain.Service;
 
 Console.WriteLine("Whois Internet Domain");
 
 var tldWhoisServerDatabase = new TldWhoisServerDatabaseHardCoded();
+var userInput = new UserInputFromCommandLineArgument();
 
-var internetDomains = Environment
-    .GetCommandLineArgs()
-    .Skip(1)
-    .Select(argument => new InternetDomainModel(argument))
-    .ToArray();
-
-if (internetDomains.Length > 0)
+if (userInput.Domains.Length > 0)
 {
-    foreach (var internetDomain in internetDomains)
+    foreach (var internetDomain in userInput.Domains)
     {
         Console.WriteLine($"###[ {internetDomain} ]###".PadRight(80, '#'));
 
