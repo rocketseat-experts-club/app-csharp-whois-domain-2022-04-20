@@ -4,7 +4,7 @@ using WhoisDomain.Model;
 
 namespace WhoisDomain.Service;
 
-public class WhoisQueryTcp
+public class WhoisQueryTcp : IWhoisQuery
 {
     private readonly TldWhoisServerDatabaseHardCoded _tldWhoisServerDatabase;
 

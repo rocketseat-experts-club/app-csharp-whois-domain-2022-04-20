@@ -2,7 +2,7 @@
 
 namespace WhoisDomain.Service;
 
-public class UserInputFromCommandLineArgument
+public class UserInputFromCommandLineArgument : IUserInput
 {
     public InternetDomainModel[] Domains { get; }
 

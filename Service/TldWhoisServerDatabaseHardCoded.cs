@@ -2,7 +2,7 @@
 
 namespace WhoisDomain.Service;
 
-public class TldWhoisServerDatabaseHardCoded
+public class TldWhoisServerDatabaseHardCoded : ITldWhoisServerDatabase
 {
     private readonly TldWhoisServerModel[] _database = {
         new () { Tld = ".com", Server = "whois.verisign-grs.com" },

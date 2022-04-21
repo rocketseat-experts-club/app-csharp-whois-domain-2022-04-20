@@ -2,7 +2,7 @@
 
 namespace WhoisDomain.Application;
 
-public class Whois
+public class Whois : IApplication
 {
     private readonly WhoisQueryTcp _whoisQuery;
     private readonly UserInputFromCommandLineArgument _userInput;
