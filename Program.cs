@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using WhoisDomain.Model;
 using WhoisDomain.Service;
 
 Console.WriteLine("Whois Internet Domain");
@@ -8,19 +9,16 @@ var tldWhoisServerDatabase = new TldWhoisServerDatabaseHardCoded();
 var internetDomains = Environment
     .GetCommandLineArgs()
     .Skip(1)
+    .Select(argument => new InternetDomainModel(argument))
     .ToArray();
 
 if (internetDomains.Length > 0)
 {
     foreach (var internetDomain in internetDomains)
     {
-        var dot = $"{internetDomain}.".IndexOf(".", StringComparison.Ordinal);
-        var host = internetDomain[..dot].ToLower();
-        var tld = internetDomain[dot..].ToLower();
+        Console.WriteLine($"###[ {internetDomain} ]###".PadRight(80, '#'));
 
-        Console.WriteLine($"###[ {host}{tld} ]###".PadRight(80, '#'));
-
-        var tldWhois = tldWhoisServerDatabase.GetByTld(tld);
+        var tldWhois = tldWhoisServerDatabase.GetByTld(internetDomain.Tld);
         if (tldWhois != null &&
             !string.IsNullOrWhiteSpace(tldWhois.Server) &&
             tldWhois.Port > 0)
@@ -41,7 +39,7 @@ if (internetDomains.Length > 0)
         }
         else
         {
-            Console.WriteLine($"TLD indisponível para consulta: {tld}");
+            Console.WriteLine($"TLD indisponível para consulta: {internetDomain.Tld}");
         }
     }
 
