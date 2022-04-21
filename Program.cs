@@ -7,7 +7,8 @@ using var host = Host
     .CreateDefaultBuilder()
     .ConfigureServices((_, services) => services
         .AddTransient<IApplication, Whois>()
-        .AddTransient<ITldWhoisServerDatabase, TldWhoisServerDatabaseHardCoded>()
+        .AddTransient<ITldWhoisServerDatabase, TldWhoisServerDatabaseIniFile>()
+        .AddTransient<ITldWhoisServerList, TldWhoisServerDatabaseHardCoded>()
         .AddTransient<IUserInput, UserInputFromCommandLineArgument>()
         .AddTransient<IWhoisQuery, WhoisQueryTcp>()
     ).Build();

@@ -2,7 +2,7 @@
 
 public class TldWhoisServerModel
 {
-    private const ushort DefaultPort = 43;
+    public const ushort DefaultPort = 43;
     
     public string? Tld { get; init; }
     public string? Server { get; init; }
